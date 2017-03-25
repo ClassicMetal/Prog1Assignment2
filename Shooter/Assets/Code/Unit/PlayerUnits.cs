@@ -11,6 +11,9 @@ namespace TAMKShooter
 		private Dictionary<PlayerData.PlayerId, PlayerUnit> _players =
 			new Dictionary<PlayerData.PlayerId, PlayerUnit> ();
 
+        [SerializeField]
+        private Transform[] spawnPoints;
+
 		public void Init(params PlayerData[] players)
 		{
 			foreach (PlayerData playerData in players)
@@ -24,8 +27,8 @@ namespace TAMKShooter
 				{
 					// Initialize unit
 					PlayerUnit unit = Instantiate ( unitPrefab, transform );
-					unit.transform.position = Vector3.zero;
-					unit.transform.rotation = Quaternion.identity;
+                    unit.transform.position = spawnPoints[(int)playerData.Id - 1].position;
+                    unit.transform.rotation = Quaternion.identity;
 					unit.Init ( playerData );
 
 					// Add player to dictionary
